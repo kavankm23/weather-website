@@ -5,6 +5,7 @@ const geocode=require('./utils/geocode')
 const forecast=require('./utils/forecast')
 
 const app=express()
+const port=process.env.PORT || 3000
 
 //define path for express congig
 const publicDirectoryPath=path.join(__dirname,'../public')
@@ -45,7 +46,7 @@ app.get('/help',(req,res)=>{
 app.get('/weather',(req,res)=>{
   if(!req.query.address){
     return res.send({
-      error:'provide address'
+      error:'Please Enter location'
     })
   }
   geocode(req.query.address,(error,{longitude,lattitude,location}={})=>{
@@ -97,6 +98,6 @@ res.render('404',{
 })
 
 
-app.listen(3000,()=>{
+app.listen(port,()=>{
   console.log('server is running')
 })
